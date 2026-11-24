@@ -7,8 +7,7 @@ type SearchParams = Promise<{ filter?: string }>
 const BlogList = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { filter } = await searchParams
   const search = filter ?? ''
-  const allBlogs = await getBlogs()
-  const blogs = allBlogs.filter((blog) => blog.title.toLowerCase().includes(search.toLowerCase()))
+  const blogs = await getBlogs(search)
   const blogsToShow = [...blogs].sort((a, b) => b.likes - a.likes)
   return (
     <>
@@ -38,7 +37,7 @@ const BlogList = async ({ searchParams }: { searchParams: SearchParams }) => {
   )
 }
 
-const Blogs = ({ searchParams }: { searchParams: SearchParams }) => {
+const Blogs = async ({ searchParams }: { searchParams: SearchParams }) => {
   return (
     <div>
       <h2>Blogs</h2>
