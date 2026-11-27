@@ -4,8 +4,10 @@ import { redirect } from "next/navigation"
 import { generateToken } from "../actions/users"
 import Link from "next/link"
 import { markRead } from "../actions/readingList"
+import { connection } from "next/server"
 
 const Me = async () => {
+  await connection()
   const user = await getCurrentUser()
   if(!user){
     redirect("/login")
